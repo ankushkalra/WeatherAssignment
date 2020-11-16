@@ -1,11 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  ToastAndroid,
-  StyleSheet,
-  PermissionsAndroid,
-} from 'react-native';
+import {View, Text, StyleSheet, PermissionsAndroid} from 'react-native';
 import LottieView from 'lottie-react-native';
 import ShowWeather from './ShowWeather';
 import {fetchWeatherAction} from '../actions';
@@ -14,7 +8,13 @@ import Geolocation from 'react-native-geolocation-service';
 
 const source = require('./animation.json');
 
-function HomeScreen({dispatch, isFetching, fetchFailed, weatherData}) {
+function HomeScreen({
+  dispatch,
+  isFetching,
+  fetchFailed,
+  weatherData,
+  navigation,
+}) {
   useEffect(() => {
     (async () => {
       const granted = await PermissionsAndroid.request(
@@ -36,23 +36,15 @@ function HomeScreen({dispatch, isFetching, fetchFailed, weatherData}) {
             dispatch(fetchWeatherAction({lat, lon}));
           },
           (error) => {
-            ToastAndroid.show(
-              "Can't get location, showing weather for Delhi",
-              ToastAndroid.LONG,
-            );
-            dispatch(fetchWeatherAction());
+            navigation.navigate('Error');
           },
           {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
         );
       } else {
-        ToastAndroid.show(
-          "Can't get location, showing weather for Delhi",
-          ToastAndroid.LONG,
-        );
-        dispatch(fetchWeatherAction());
+        navigation.navigate('Error');
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, navigation]);
 
   return (
     <View style={styles.container}>
