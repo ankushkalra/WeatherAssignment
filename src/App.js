@@ -1,12 +1,12 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import Weather from './components/Weather';
+import HomeScreen from './components/HomeScreen';
 import store from './store';
 
 function App() {
   return (
     <Provider store={store}>
-      <Weather />
+      <HomeScreen />
     </Provider>
   );
 }

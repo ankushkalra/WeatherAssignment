@@ -7,10 +7,11 @@ import {
 } from '../constants';
 import {ToastAndroid} from 'react-native';
 
-export function* fetchWeatherSaga() {
+export function* fetchWeatherSaga(action) {
   try {
-    const weather = yield call(fetchWeather, 'Delhi');
-    const cityData = yield call(fetchCity);
+    const {lat, lon} = action.payload || {};
+    const weather = yield call(fetchWeather, {lat, lon});
+    const cityData = yield call(fetchCity, {lat, lon});
 
     weather.city = cityData.city;
 

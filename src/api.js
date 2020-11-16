@@ -6,10 +6,10 @@ const api = create({
   baseURL: 'https://api.openweathermap.org/data/2.5',
 });
 
-export async function fetchWeather(lat, lon) {
+export async function fetchWeather({lat, lon} = {}) {
   const response = await api.get('/onecall', {
-    lat: 28.704,
-    lon: 77.102,
+    lat: lat || 28.704,
+    lon: lon || 77.102,
     appid: API_KEY,
     exclude: 'hourly,current,minutely',
   });
@@ -17,10 +17,10 @@ export async function fetchWeather(lat, lon) {
   return response.data;
 }
 
-export async function fetchCity(lat, lon) {
+export async function fetchCity({lat, lon} = {}) {
   const response = await api.get('/forecast', {
-    lat: 28.704,
-    lon: 77.102,
+    lat: lat || 28.704,
+    lon: lon || 77.102,
     appid: API_KEY,
   });
 

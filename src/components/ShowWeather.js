@@ -10,7 +10,7 @@ export default ({data}) => {
         data.next5Days.map((w) => {
           const date = new moment(w.dt, 'X');
           return (
-            <View style={[styles.card, styles.nextDaysCard]}>
+            <View key={String(w.dt)} style={[styles.card, styles.nextDaysCard]}>
               <View>
                 <Text>{date.format('dddd')}</Text>
               </View>
